@@ -49,40 +49,40 @@ namespace CardsServerD100923ER.Infrastructure.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Likes",
+                name: "CardUser",
                 columns: table => new
                 {
-                    CardId = table.Column<string>(type: "nvarchar(450)", nullable: false),
-                    UserId = table.Column<string>(type: "nvarchar(450)", nullable: false)
+                    CardsId = table.Column<string>(type: "nvarchar(450)", nullable: false),
+                    UsersId = table.Column<string>(type: "nvarchar(450)", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Likes", x => new { x.CardId, x.UserId });
+                    table.PrimaryKey("PK_CardUser", x => new { x.CardsId, x.UsersId });
                     table.ForeignKey(
-                        name: "FK_Likes_Cards_CardId",
-                        column: x => x.CardId,
+                        name: "FK_CardUser_Cards_CardsId",
+                        column: x => x.CardsId,
                         principalTable: "Cards",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_Likes_Users_UserId",
-                        column: x => x.UserId,
+                        name: "FK_CardUser_Users_UsersId",
+                        column: x => x.UsersId,
                         principalTable: "Users",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateIndex(
-                name: "IX_Likes_UserId",
-                table: "Likes",
-                column: "UserId");
+                name: "IX_CardUser_UsersId",
+                table: "CardUser",
+                column: "UsersId");
         }
 
         /// <inheritdoc />
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
-                name: "Likes");
+                name: "CardUser");
 
             migrationBuilder.DropTable(
                 name: "Cards");

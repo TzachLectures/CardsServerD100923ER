@@ -1,4 +1,6 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using CardsServerD100923ER.Core.Models.SubModels;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Text.Json.Serialization;
 
 namespace CardsServerD100923ER.Core.Models
@@ -15,13 +17,21 @@ namespace CardsServerD100923ER.Core.Models
         public string Email { get; set; }
         public string Web { get; set; }
 
-        //Image {}
-        //Address {}
+        public Address Address { get; set; }
+        public Image Image { get; set; }
 
         public int BizNumber { get; set; }
-        //public List<string> Likes { get; set; } = new List<string>();         
+
+
         [JsonPropertyName("user_id")]
         public string UserId { get; set; }
+
         public DateTime CreatedAt { get; set; } = DateTime.Now;
+
+        [JsonIgnore]
+        public ICollection<User> Users { get; set; } = new List<User>();
+
+        [NotMapped]
+        public List<string> Likes { get => Users.Select(u => u.Id).ToList(); }
     }
 }

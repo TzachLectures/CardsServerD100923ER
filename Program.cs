@@ -1,5 +1,9 @@
 
+using CardsServerD100923ER.Application.Interfaces;
+using CardsServerD100923ER.Application.Services;
+using CardsServerD100923ER.Core.Interfaces;
 using CardsServerD100923ER.Infrastructure.Data;
+using CardsServerD100923ER.Infrastructure.Services;
 using Microsoft.EntityFrameworkCore;
 
 namespace CardsServerD100923ER
@@ -17,6 +21,10 @@ namespace CardsServerD100923ER
             string connectionString = "Server=LAPTOP-M1H6FNPI\\MSSQLSERVER02; Database=CardsProjectDb; Trusted_Connection=True; TrustServerCertificate=True;";
 
             builder.Services.AddDbContext<CardsProjectDbContext>(options => options.UseSqlServer(connectionString));
+
+            builder.Services.AddScoped<IUserRepository, UserRepository > ();
+            builder.Services.AddScoped<IUserService, UserService>();
+
 
             // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
             builder.Services.AddEndpointsApiExplorer();

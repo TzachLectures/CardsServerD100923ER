@@ -10,16 +10,7 @@ namespace CardsServerD100923ER.Infrastructure.Data
 
         public CardsProjectDbContext(DbContextOptions<CardsProjectDbContext> options) : base(options) { }
 
-        protected override void OnModelCreating(ModelBuilder modelBuilder)
-        {
-            modelBuilder.Entity<Card>()
-                .HasMany<User>()
-                .WithMany()
-                .UsingEntity<Dictionary<string, object>>(
-                    "Likes",
-                    j => j.HasOne<User>().WithMany().HasForeignKey("UserId"),
-                    j => j.HasOne<Card>().WithMany().HasForeignKey("CardId"));
-        }
+        
 
     }
 }

@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace CardsServerD100923ER.Infrastructure.Migrations
 {
     [DbContext(typeof(CardsProjectDbContext))]
-    [Migration("20241120191623_InitialCreate")]
+    [Migration("20241124170225_InitialCreate")]
     partial class InitialCreate
     {
         /// <inheritdoc />
@@ -24,6 +24,21 @@ namespace CardsServerD100923ER.Infrastructure.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
+
+            modelBuilder.Entity("CardUser", b =>
+                {
+                    b.Property<string>("CardsId")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("UsersId")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.HasKey("CardsId", "UsersId");
+
+                    b.HasIndex("UsersId");
+
+                    b.ToTable("CardUser");
+                });
 
             modelBuilder.Entity("CardsServerD100923ER.Core.Models.Card", b =>
                 {
@@ -103,32 +118,17 @@ namespace CardsServerD100923ER.Infrastructure.Migrations
                     b.ToTable("Users");
                 });
 
-            modelBuilder.Entity("Likes", b =>
-                {
-                    b.Property<string>("CardId")
-                        .HasColumnType("nvarchar(450)");
-
-                    b.Property<string>("UserId")
-                        .HasColumnType("nvarchar(450)");
-
-                    b.HasKey("CardId", "UserId");
-
-                    b.HasIndex("UserId");
-
-                    b.ToTable("Likes");
-                });
-
-            modelBuilder.Entity("Likes", b =>
+            modelBuilder.Entity("CardUser", b =>
                 {
                     b.HasOne("CardsServerD100923ER.Core.Models.Card", null)
                         .WithMany()
-                        .HasForeignKey("CardId")
+                        .HasForeignKey("CardsId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.HasOne("CardsServerD100923ER.Core.Models.User", null)
                         .WithMany()
-                        .HasForeignKey("UserId")
+                        .HasForeignKey("UsersId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });
