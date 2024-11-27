@@ -17,7 +17,20 @@ namespace CardsServerD100923ER.Application.Services
         {
            if (user == null) return null;
 
-           return await _userRepository.CreateUserAsync(user);
+            return await _userRepository.CreateUserAsync(user);
         }
+
+        public async Task<string?> Login(LoginModel login)
+        {
+            User? u = await _userRepository.GetUserByEmailAsync(login.Email);
+            
+            if (u == null || u.Password != login.Password)
+            {
+                return null;
+            }
+           
+            return "token";
+        }
+
     }
 }

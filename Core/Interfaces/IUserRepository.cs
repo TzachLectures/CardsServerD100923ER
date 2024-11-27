@@ -5,6 +5,7 @@ namespace CardsServerD100923ER.Core.Interfaces
     public interface IUserRepository
     {
         public Task<User?> CreateUserAsync(User user);
+        public Task<User?> GetUserByEmailAsync(string email);
         //public Task<User?> GetUserByIdAsync(string id);
         //public Task<List<User>> GetAllUsersAsync();
         //public Task<User?> UpdateUserAsync(string id, User user);

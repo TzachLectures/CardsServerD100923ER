@@ -1,6 +1,7 @@
 ﻿using CardsServerD100923ER.Core.Interfaces;
 using CardsServerD100923ER.Core.Models;
 using CardsServerD100923ER.Infrastructure.Data;
+using Microsoft.EntityFrameworkCore;
 
 namespace CardsServerD100923ER.Infrastructure.Services
 {
@@ -23,6 +24,18 @@ namespace CardsServerD100923ER.Infrastructure.Services
             catch (Exception e)
             {
                 Console.WriteLine(e);
+                return null;
+            }
+        }
+        public async Task<User?> GetUserByEmailAsync(string email)
+        {
+            try
+            {
+                return await _context.Users.FirstOrDefaultAsync(u => u.Email == email);
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex);
                 return null;
             }
         }
