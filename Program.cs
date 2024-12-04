@@ -45,6 +45,12 @@ namespace CardsServerD100923ER
                     };
                 });
 
+            builder.Services.AddAuthorization(options =>
+            {
+                options.AddPolicy("MustBeBusiness",policy=>policy.RequireClaim("isBusiness","true"));
+                options.AddPolicy("MustBeAdmin", policy => policy.RequireClaim("isAdmin", "true"));
+            });
+
             builder.Services.AddCors(
             options => options.AddPolicy("myCorsPolicy",
             policy => policy.AllowAnyOrigin()

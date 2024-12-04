@@ -18,7 +18,7 @@ namespace CardsServerD100923ER.Presentation.Controllers
         }
 
         [HttpPost]
-        [Authorize]
+        [Authorize(Policy ="MustBeBusiness")]
         public async Task<IActionResult> Post (Card card)
         {
             Claim? userIdClaim = HttpContext.User.Claims.FirstOrDefault(c => c.Type == "_id");
