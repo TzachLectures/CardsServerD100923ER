@@ -19,7 +19,7 @@ namespace CardsServerD100923ER.Application.Services
             };
 
 
-            SymmetricSecurityKey securityKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes("SuperSecret"));
+            SymmetricSecurityKey securityKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes("F8C2E94F-694F-4888-B434-7B0B228239D4"));
             SigningCredentials credentials = new SigningCredentials(securityKey, SecurityAlgorithms.HmacSha256);
 
             JwtSecurityToken token = new JwtSecurityToken(

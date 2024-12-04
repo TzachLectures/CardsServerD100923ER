@@ -7,10 +7,12 @@ namespace CardsServerD100923ER.Application.Services
     public class UserService :IUserService
     {
         private readonly IUserRepository _userRepository;
+        private readonly IAuth _authService;
 
-        public UserService(IUserRepository userRepository)
+        public UserService(IUserRepository userRepository,IAuth auth)
         {
             _userRepository = userRepository;
+            _authService = auth;
         }
 
         public async Task<User?> Register(User user)
@@ -28,8 +30,8 @@ namespace CardsServerD100923ER.Application.Services
             {
                 return null;
             }
-           
-            return "token";
+
+            return _authService.GenerateToken(u);
         }
 
     }
