@@ -1,4 +1,5 @@
 
+using CardsServerD100923ER.Application.Filters;
 using CardsServerD100923ER.Application.Interfaces;
 using CardsServerD100923ER.Application.Services;
 using CardsServerD100923ER.Core.Interfaces;
@@ -19,7 +20,12 @@ namespace CardsServerD100923ER
 
             // Add services to the container.
 
-            builder.Services.AddControllers();
+            builder.Services.AddControllers(options =>
+            {                
+                options.Filters.Add<ValidateModelFilter>();
+                options.Filters.Add<LogActionFilter>();
+
+            });
 
             string connectionString = "Server=LAPTOP-M1H6FNPI\\MSSQLSERVER02; Database=CardsProjectDb; Trusted_Connection=True; TrustServerCertificate=True;";
 
@@ -47,8 +53,8 @@ namespace CardsServerD100923ER
 
             builder.Services.AddAuthorization(options =>
             {
-                options.AddPolicy("MustBeBusiness",policy=>policy.RequireClaim("isBusiness","true"));
-                options.AddPolicy("MustBeAdmin", policy => policy.RequireClaim("isAdmin", "true"));
+                options.AddPolicy("MustBeBusiness",policy=>policy.RequireClaim("isBusiness","True"));
+                options.AddPolicy("MustBeAdmin", policy => policy.RequireClaim("isAdmin", "True"));
             });
 
             builder.Services.AddCors(
@@ -57,6 +63,9 @@ namespace CardsServerD100923ER
             .AllowAnyHeader()
             .AllowAnyMethod())
             );
+
+
+
 
             // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
             builder.Services.AddEndpointsApiExplorer();
